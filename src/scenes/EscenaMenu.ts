@@ -25,12 +25,6 @@ export default class EscenaMenu extends Phaser.Scene{
         this.load.image('pestimedio', 'assets/images/Gameplay Assets/colliders/collider rojo pesticida medio.png')
         this.load.image('matamosca', 'assets/images/Gameplay Assets/colliders/matamoscas grande.png')
 
-        //Preloads del personaje
-        this.load.spritesheet('bee', 'assets/images/Gameplay Assets/Personajes/bee.png', { frameWidth: 108, frameHeight: 120});
-
-        //Preload Tilemaps
-        this.load.tilemapTiledJSON('Beejuego', 'assets/BeeJuegoMASLARGO.json')
-
     }
 
     create() {

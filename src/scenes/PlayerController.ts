@@ -12,8 +12,12 @@ export default class PlayerController
 	private cursors: CursorKeys
 	private obstacles: ObstaclesController
 
+	private pointer: any
+
 	private stateMachine: StateMachine
-	private health = 100
+
+	private health = 3
+
 
     //private lastSnowman?: Phaser.Physics.Matter.Sprite ///cambiar config a un Boss
 
@@ -23,46 +27,44 @@ export default class PlayerController
 		this.sprite = sprite
 		this.cursors = cursors
 		this.obstacles = obstacles
+		this.pointer = scene.input.activePointer;
 
 		this.createAnimations()
 
 		this.stateMachine = new StateMachine(this, 'player')
 
         this.stateMachine.addState('idle', {
-            onEnter: this.idleOnEnter,
+			onEnter: this.idleOnEnter,
 			onUpdate: this.idleOnUpdate
-        })
-        .addState('walk', {
+		})
+		.addState('walk', {
 			onEnter: this.walkOnEnter,
 			onUpdate: this.walkOnUpdate,
-			onExit: this.walkOnExit
+			//onExit: this.walkOnExit
+		})
+		.addState('Choquehit', {
+        	onEnter: this.ChoqueCollOnEnter		
 		})
         .addState('jump', {
 			onEnter: this.jumpOnEnter,
 			onUpdate: this.jumpOnUpdate
 		})
-        .addState('Choque-hit', {
-			onEnter: this.ChoqueCollOnEnter
-        })
             .addState('dead', {
                 onEnter: this.deadOnEnter
             })
         .setState('idle')
 
+		
         this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
 			const body = data.bodyB as MatterJS.BodyType
-
+			console.log(body)
             if (this.obstacles.is('Choques', body))
 			{
-				this.stateMachine.setState('Choque-hit')
+				this.stateMachine.setState('Choquehit')
 				return
 			}
-            /*if (this.obstacles.is('ChoqueMata', body))
-			{
-				this.stateMachine.setState('ChoqueMata-hit')
-				return
-			}*/
-            const gameObject = body.gameObject
+            
+			const gameObject = body.gameObject
 
 			if (!gameObject)
 			{
@@ -84,17 +86,17 @@ export default class PlayerController
             //CODIGO PARA MODIFICAR CON PU Y VIDA
            switch (type)
 			{
-				case 'star':
+				case 'florcita':
 				{
-					events.emit('star-collected')
+					events.emit('florcita-collected')
 					sprite.destroy()
 					break
 				}
 
 				case 'health':
 				{
-					const value = sprite.getData('healthPoints') ?? 10 
-					this.health = Phaser.Math.Clamp(this.health + value, 0, 100)
+					const value = sprite.getData('healthPoints') ?? 1 
+					this.health = Phaser.Math.Clamp(this.health + value, 0, 3)
 					events.emit('health-changed', this.health)
 					sprite.destroy()
 					break
@@ -110,7 +112,7 @@ export default class PlayerController
 
     private setHealth(value: number)
 	{
-		this.health = Phaser.Math.Clamp(value, 0, 100)
+		this.health = Phaser.Math.Clamp(value, 0, 3)
 
 		events.emit('health-changed', this.health)
 
@@ -128,31 +130,22 @@ export default class PlayerController
 
     private idleOnUpdate()
     {
-        /*if (this.cursors.left.isDown || this.cursors.right.isDown)
+		 const speed = 7
+		if (this.pointer.isDown)
 		{
-			this.stateMachine.setState('walk')
-		}*/
-
-		if (this.cursors.left.isDown || this.cursors.right.isDown)
-		{
-			this.stateMachine.setState('walk')
-		}
-
-        const spaceJustPressed = Phaser.Input.Keyboard.JustDown(this.cursors.space)
-		if (spaceJustPressed)
-		{
+			this.sprite.setVelocityX(speed)
 			this.stateMachine.setState('jump')
 		}
     }
 
-    private walkOnEnter()
+	private walkOnEnter()
 	{
 		this.sprite.play('player-walk')
 	}
 
-    private walkOnUpdate()
+	private walkOnUpdate()
 	{
-		/*const speed = 5
+		const speed = 7
 
 		if (this.cursors.left.isDown)
 		{
@@ -170,74 +163,37 @@ export default class PlayerController
 			this.stateMachine.setState('idle')
 		}
 
-		const spaceJustPressed = Phaser.Input.Keyboard.JustDown(this.cursors.space)
-		if (spaceJustPressed)
-		{
-			this.stateMachine.setState('jump')
-		}*/
 		
-		const speed = 5
-
-		if (this.cursors.left.isDown)
-		{
-			this.sprite.flipX = true
-			this.sprite.setVelocityX(-speed)
-		}
-		else if (this.cursors.right.isDown)
-		{
-			this.sprite.flipX = false
-			this.sprite.setVelocityX(speed)
-		}
-		else
-		{
-			this.sprite.setVelocityX(0)
-			this.stateMachine.setState('idle')
-		}
-
-		const spaceJustPressed = Phaser.Input.Keyboard.JustDown(this.cursors.space)
-		if (spaceJustPressed)
+		if (this.pointer.isDown)
 		{
 			this.stateMachine.setState('jump')
 		}
-	}
-
-    private walkOnExit()
-	{
-		this.sprite.stop()
 	}
 
 	//jumpOnEnter para saltar sin tocar plataforma
 
  private jumpOnEnter()
 	{
-		this.sprite.setVelocityY(-12)
+		this.sprite.setVelocityY(-5)
+		this.sprite.play('jump')
 	}
     
 	private jumpOnUpdate()
 	{
-		const speed = 5
+		const speed = 7
 
-        if (this.cursors.left.isDown)
+        if (this.pointer.isDown)
 		{
-			this.sprite.flipX = true
-			this.sprite.setVelocityX(-speed)
-		}
-		else if (this.cursors.right.isDown)
-		{
-			this.sprite.flipX = false
 			this.sprite.setVelocityX(speed)
+			this.stateMachine.setState('jump')
 		}
-        /*const spaceJustPressed = Phaser.Input.Keyboard.JustDown(this.cursors.space)
-		if (spaceJustPressed)
-		{
-			this.stateMachine.setState('jump')*/
+		this.stateMachine.setState('idle')
 	}
 
-
- private ChoqueCollOnEnter()
+	private ChoqueCollOnEnter()
 	{
 		this.sprite.setVelocityY(-12)
-
+		
 		const startColor = Phaser.Display.Color.ValueToColor(0xffffff)
 		const endColor = Phaser.Display.Color.ValueToColor(0xff0000)
 
@@ -269,9 +225,13 @@ export default class PlayerController
 
 		this.stateMachine.setState('idle')
 
-		this.setHealth(this.health - 50)
+		this.setHealth(this.health - 1)
+		
 	}
 
+	//AGREGAR WALKON UPDATE
+	//JUMPO ON ENTER AGREGAR
+	//AGREGAR EN EL IDLE ON UPDATE
 
     private deadOnEnter()
 	{
@@ -289,7 +249,7 @@ export default class PlayerController
 	{
         this.sprite.anims.create({
 			key: 'player-idle',
-			frames: [{ key: 'BEE', frame: 'BEE0.png' }]
+			frames: [{ key: 'BEE', frame: 'BEE1.png' }]
 		})
 
 
@@ -298,7 +258,7 @@ export default class PlayerController
 			frameRate: 10,
 			frames: this.sprite.anims.generateFrameNames('BEE', {
 				start: 0,
-				end: 1,
+				end: 3,
 				prefix: 'BEE',
 				suffix: '.png'
 			}),
@@ -310,26 +270,24 @@ export default class PlayerController
 			frameRate: 10,
 			frames: this.sprite.anims.generateFrameNames('BEE', {
                 start: 0, 
-                end: 1,
+                end: 3,
                 prefix: 'BEE',
                 suffix: '.png'
             }),
-            repeat: 1
+            repeat: -1
         })
 		
-
         //CONFIGURAR UN SPRITE DE ABEJITA X.X
-        /*this.sprite.anims.create({
+        this.sprite.anims.create({
 			key: 'player-death',
-			frames: this.sprite.anims.generateFrameNames('bee', {
-				start: 1,
-				end: 2,
-				prefix: 'bee_die',
-				zeroPad: 2,
+			frames: this.sprite.anims.generateFrameNames('BEE', {
+				start: 4,
+				end: 5,
+				prefix: 'BEE',
 				suffix: '.png'
 			}),
 			frameRate: 10
-		})*/
+		})
 
 	}
 }

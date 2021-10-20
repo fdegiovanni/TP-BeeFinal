@@ -1,4 +1,4 @@
-import Phaser from 'phaser'
+import Phaser, { Scene } from 'phaser'
 import { sharedInstance as events } from './EventCenter'
 
 export default class UI extends Phaser.Scene
@@ -7,7 +7,8 @@ export default class UI extends Phaser.Scene
     //private starsCollected = 0
 	private graphics!: Phaser.GameObjects.Graphics
 
-	private lastHealth = 100
+	private lastHealth = 3
+	private hearts!: Phaser.GameObjects.Group
 
 	constructor()
 	{
@@ -22,25 +23,66 @@ export default class UI extends Phaser.Scene
 
     create()
 	{
-		this.graphics = this.add.graphics()
-		this.setHealthBar(100)
+		//this.graphics = this.add.graphics()
+		//this.setHealthBar(3)
 
         /*this.starsLabel = this.add.text(10, 35, 'Stars: 0', {
 			fontSize: '32px'
+		})*/
+
+		//events.on('star-collected', this.handleStarCollected, this)
+
+		//events.on('health-changed', this.handleHealthChanged, this)
+
+		/*this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+			events.off('star-collected', this.handleStarCollected, this)
+		})*/
+
+		//INTENTO CONFIG DE VIDA EN CORAZÓN
+
+		this.hearts = this.add.group({
+			classType: Phaser.GameObjects.Image
 		})
 
-		events.on('star-collected', this.handleStarCollected, this)
-		events.on('health-changed', this.handleHealthChanged, this)
+		this.hearts.createMultiple({
+			key: 'health',
+			setXY: {
+				x:70,
+				y:50,
+				stepX: 80
+			}, 
+			
+			quantity: 3
+		})
 
-		this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-			events.off('star-collected', this.handleStarCollected, this)
-		})*/ 
+		events.on('health-changed', this.setHealth, this)
+
+		this.events.on(Phaser.Scenes.Events.SHUTDOWN,() => 
+		{
+			events.off('health-changed', this.setHealth)
+		})
+
     }
 
-    private setHealthBar(value: number)
+	private setHealth(health: number)
+	{
+		this.hearts.children.each((go, idx) => {
+			const heart = go as Phaser.GameObjects.Image
+			if (idx <= health)
+			{
+				heart.setTexture('health')
+			}
+			else
+			{
+				heart.setTexture('healthempty')
+			}
+		})
+	}
+
+    /*private setHealthBar(value: number)
 	{
 		const width = 200
-		const percent = Phaser.Math.Clamp(value, 0, 100) / 100
+		const percent = Phaser.Math.Clamp(value, 0, 3) / 3
 
 		this.graphics.clear()
 		this.graphics.fillStyle(0x808080)

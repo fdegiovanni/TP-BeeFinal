@@ -14,6 +14,8 @@ export default class Game extends Phaser.Scene
  private obstacles!: ObstaclesController
  //private enemigo: EnemigoController [] = []¨
 
+ 
+
  constructor()
 	{
 		super('game')
@@ -32,22 +34,24 @@ export default class Game extends Phaser.Scene
  preload()
  {
     //Preloads del personaje
-    //this.load.spritesheet('bee', 'assets/images/Gameplay Assets/Personajes/beesprite.png', { frameWidth: 108, frameHeight: 120}); 
+    
     this.load.atlas('BEE', 'assets/images/Gameplay Assets/Personajes/JSONTRY/BEE.png', 'assets/images/Gameplay Assets/Personajes/JSONTRY/BEE.json'); 
 
     //preload de los objetos a usar
     this.load.image('health', 'assets/images/Gameplay Assets/power up/PU vida1.png')
+    this.load.image('healthempty', 'assets/images/Gameplay Assets/power up/PU vidasin22.png')
     //Preloads de los colliders
     this.load.image('pesticorto', 'assets/images/Gameplay Assets/colliders/collider rojo pesticida corto.png')
-    this.load.image('pestilargo', 'assets/images/Gameplay Assets/colliders/collider rojo pesticida.png')
-    this.load.image('pestimedio', 'assets/images/Gameplay Assets/colliders/collider rojo pesticida medio.png')
-    this.load.image('matamosca', 'assets/images/Gameplay Assets/colliders/matamoscas grande.png')
+    //Obstaculos
+    this.load.image('obstaculos', 'assets/images/Gameplay Assets/colliders/tilemap1 prueba.png')
 
     //preload de el fondo del tile 
-    this.load.image('menufondo', 'assets/images/Menu/menufondo.png')
-    
+    //this.load.image('menufondo', 'assets/images/Menu/menufondo.png')
+    this.load.image('fondolevel', 'assets/images/Menu/fondo attarrdecer.png')
     //Preload Tilemaps
-    this.load.tilemapTiledJSON('Beejuego', 'assets/BeeJuegoMASLARGO.json')
+    
+    this.load.tilemapTiledJSON('BeeGame', 'assets/BeeGameTry.json')
+
  }
 
  create()
@@ -55,32 +59,24 @@ export default class Game extends Phaser.Scene
     this.scene.launch('ui')
 
     //Tilemaps
-    const map = this.make.tilemap({ key: 'Beejuego' });
+    const map = this.make.tilemap({ key: 'BeeGame' });
     this.cameras.main.setBounds(0, 0, 4800, 885)
     //Conjunto de Patrones/Aka Tileset
 
-    const tileset1 = map.addTilesetImage('Fondo', 'menufondo'); //Primero el nombre del conjunto y luego como se definio en Visual
-    const tileset2 = map.addTilesetImage('MATASMOSCAS','matamosca');
-    const tileset3 = map.addTilesetImage('COLLIDERPESTI', 'pestilargo' );
-    
-    //tileset de prueba para el 'suelo'
-    const tileset4 = map.addTilesetImage('SUELO', 'pesticorto' );
+    const tileset1 = map.addTilesetImage('Fondo', 'fondolevel'); //Primero el nombre del conjunto y luego como se definio en Visual
+    const tileset2 = map.addTilesetImage('OBSTACULOS','obstaculos');
+    const tileset3 = map.addTilesetImage('SUELO', 'pesticorto' );
 
     //Capas/Aka 'Layers'
 
     const layerfondo = map.createLayer('FONDO', tileset1);
-    const layercollider = map.createLayer('COLLIDER', tileset2, 0, 0);
-    const layercolliderpesti = map.createLayer('COLLIDERPESTI', tileset3, 0, 0);
-    const layercollidersuelo = map.createLayer('SUELO', tileset4, 0, 0);
+    const layercollidersuelo = map.createLayer('SUELO', tileset3, 0, 0);
 
      //COLISIONES
         layerfondo.setCollisionByProperty({ collides: false})
-        //layercollider.setCollisionByProperty({ collides: false})
-        //layercolliderpesti.setCollisionByProperty({ collides: false})
         layercollidersuelo.setCollisionByProperty({ collides: true})
 
-        //map.createLayer('obstacles', tileset2)
-        //map.createLayer('obstacles', tileset3)
+        map.createLayer('Obstaculos', tileset2)
 
 		const objectsLayer = map.getObjectLayer('objects')
 
@@ -92,9 +88,9 @@ export default class Game extends Phaser.Scene
 				case 'Abejita-Spawn':
                     {
                         this.bee = this.matter.add.sprite(x + (width * 0.5), y, 'BEE')
-                        //shall we put fixedRotation(?)
+
                         .setFixedRotation()
-                       
+                      
                         this.playerController = new PlayerController(
                             this,
                             this.bee,
@@ -113,53 +109,39 @@ export default class Game extends Phaser.Scene
 					})
 
 					health.setData('type', 'health')
-					health.setData('healthPoints', 10)
+					health.setData('healthPoints', 1)
 					break
 				}
 
                 case 'Choques':
                     {
-                        const Choque = this.matter.add.rectangle(x + (width *0.5), y + (height * 0.5), width, height, {
-                            isStatic: true,
-                            //isSensor: true
+                        const choque = this.matter.add.rectangle(x + (width *0.5), y + (height * 0.5), width, height, {
+                            isStatic: true
                         })
-                        this.obstacles.add('Choques', Choque)
+                        this.obstacles.add('Choques', choque)
+
                         break
 
                     }
 
-                /*case 'ChoqueMata':
-                    {
-                        const ChoqueMata = this.matter.add.rectangle(x + (width *0.5), y + (height * 0.5), width, height, {
-                            isStatic: true,
-                            //IsSensor no sé si lo usamos, pero lo pongo como prueba para ver como se puede configurar
-                            //, si no se toma la config del spikes
-                            
-                        })
-                        this.obstacles.add('ChoqueMata', ChoqueMata)
-                        break
-
-                    }*/
                     case 'Pared':
                         {
-                            const layercolliderpesti = this.matter.add.rectangle(x + (width *0.5), y + (height * 0.5), width, height, {
+                            const pared = this.matter.add.rectangle(x + (width *0.5), y + (height * 0.5), width, height, {
                                 isStatic: true,
                             })
-                            this.obstacles.add('Pared', layercolliderpesti)
+                            this.obstacles.add('Pared', pared)
                             break
     
                         }
             }
         })
-        //this.matter.world.convertTilemapLayer(layercollider)
-        //this.matter.world.convertTilemapLayer(layercolliderpesti)
         this.matter.world.convertTilemapLayer(layercollidersuelo)
     }
+
 //consejos 
     destroy()
 	{
 		this.scene.stop('ui')
-		//this.snowmen.forEach(snowman => snowman.destroy())
 	}
 
     update(t: number, dt: number)
