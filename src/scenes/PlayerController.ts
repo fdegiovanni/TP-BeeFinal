@@ -52,18 +52,47 @@ export default class PlayerController
             .addState('dead', {
                 onEnter: this.deadOnEnter
             })
+		.addState('SupLvl', {
+			onEnter: this.SupLevelOnEnter,
+			onUpdate: this.SupLevelOnUpdate
+		})
+		.addState('SupLvl2', {
+			onEnter: this.SupLevel2OnEnter,
+			onUpdate: this.SupLevel2OnUpdate
+		})
+		.addState('SupLvl3', {
+			onEnter: this.SupLevel3OnEnter,
+			onUpdate: this.SupLevel3OnUpdate
+		})
         .setState('idle')
 
 		
         this.sprite.setOnCollide((data: MatterJS.ICollisionPair) => {
 			const body = data.bodyB as MatterJS.BodyType
-			console.log(body)
+			
             if (this.obstacles.is('Choques', body))
 			{
 				this.stateMachine.setState('Choquehit')
 				return
 			}
             
+			if (this.obstacles.is('FlorSup',body))
+			{
+				this.stateMachine.setState('SupLvl')
+				return
+			}
+
+			if (this.obstacles.is('FlorSup2', body))
+			{
+				this.stateMachine.setState('SupLvl2')
+				return
+			}
+			if (this.obstacles.is('FlorSup3', body))
+			{
+				this.stateMachine.setState('SupLvl3')
+				return
+			}
+
 			const gameObject = body.gameObject
 
 			if (!gameObject)
@@ -86,28 +115,39 @@ export default class PlayerController
             //CODIGO PARA MODIFICAR CON PU Y VIDA
            switch (type)
 			{
-				case 'florcita':
-				{
-					events.emit('florcita-collected')
-					sprite.destroy()
-					break
-				}
-
 				case 'health':
 				{
+					
 					const value = sprite.getData('healthPoints') ?? 1 
 					this.health = Phaser.Math.Clamp(this.health + value, 0, 3)
 					events.emit('health-changed', this.health)
 					sprite.destroy()
 					break
 				}
+
+				case 'Poison':
+				{
+					events.emit('health-changed', this.health)
+					sprite.destroy()
+					break
+				}
 			}
+
   })
  }
 
  update(dt: number)
 	{
+		
 		this.stateMachine.update(dt)
+
+		
+		if (this.health  <= 0)
+
+		{
+			this.stateMachine.setState('dead')
+		}
+	
 	}
 
     private setHealth(value: number)
@@ -116,11 +156,7 @@ export default class PlayerController
 
 		events.emit('health-changed', this.health)
 
-		// TODO: check for death
-		if (this.health <= 0)
-		{
-			this.stateMachine.setState('dead')
-		}
+		
 	}
 
     private idleOnEnter()
@@ -225,9 +261,13 @@ export default class PlayerController
 
 		this.stateMachine.setState('idle')
 
+		
+
 		this.setHealth(this.health - 1)
 		
 	}
+
+	
 
 	//AGREGAR WALKON UPDATE
 	//JUMPO ON ENTER AGREGAR
@@ -244,8 +284,53 @@ export default class PlayerController
 		})
 	}
 
+	private  SupLevelOnEnter()
+	{
+		this.sprite.setOnCollide(() => {})
 
- private createAnimations()
+		this.scene.time.delayedCall(100, () => {
+			this.scene.scene.start('gamelv2')
+		})
+
+	}
+
+	private SupLevelOnUpdate()
+	{
+		this.stateMachine.setState('idle')
+	}
+
+	private  SupLevel2OnEnter()
+	{
+		this.sprite.setOnCollide(() => {})
+
+		this.scene.time.delayedCall(100, () => {
+			this.scene.scene.start('gamelv3')
+		})
+
+	}
+
+	private SupLevel2OnUpdate()
+	{
+		this.stateMachine.setState('idle')
+	}
+
+	private  SupLevel3OnEnter()
+	{
+		this.sprite.setOnCollide(() => {})
+
+		this.scene.time.delayedCall(100, () => {
+			this.scene.scene.start('gamelvBOSS')
+		})
+
+	}
+
+	private SupLevel3OnUpdate()
+	{
+		this.stateMachine.setState('idle')
+	}
+
+	
+ 	private createAnimations()
 	{
         this.sprite.anims.create({
 			key: 'player-idle',

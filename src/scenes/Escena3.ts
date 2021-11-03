@@ -15,8 +15,10 @@ export default class Escena3 extends Phaser.Scene
       this.load.image('fone', 'assets/images/Pantallas_Assets/Opciones/flechita izquierrda.png');
       this.load.image('ftwo', 'assets/images/Pantallas_Assets/Opciones/flechita derecha.png');
       this.load.image('abselect', 'assets/images/Pantallas_Assets/Opciones/abejita seleccion.png');
-      this.load.image('sound', 'assets/images/Pantallas_Assets/Opciones/altavoz.png'); 
-      this.load.image('music', 'assets/images/Pantallas_Assets/Opciones/musica.png');
+      this.load.image('sound', 'assets/images/Pantallas_Assets/Opciones/sound.png'); 
+      this.load.image('soundmute', 'assets/images/Pantallas_Assets/Opciones/soundmute.png'); 
+      this.load.image('music', 'assets/images/Pantallas_Assets/Opciones/music.png');
+      this.load.image('musicmute', 'assets/images/Pantallas_Assets/Opciones/musicmute.png');
       this.load.image('bac', 'assets/images/Pantallas_Assets/Opciones/VOLVER.png');
     }
     create() {
@@ -37,10 +39,15 @@ export default class Escena3 extends Phaser.Scene
 
       var sound = this.add.image(950, 300, 'sound');
       sound.setScale(0.7)
+      sound.setInteractive()
+      sound.on('pointerdown', ()=> this.add.image(950, 300, 'soundmute'))
 
       var music = this.add.image(950, 400, 'music');
+      music.setInteractive()
       music.setScale(0.7)
-
+      music.on('pointerdown', ()=> this.add.image(950, 400, 'musicmute'))
+      
+      
       var volver = this.add.image(800, 800, 'bac')
       volver.setInteractive()
       volver.on('pointerdown', () => this.scene.start('inicio') );

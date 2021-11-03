@@ -4,7 +4,7 @@
      "export":
         {
          "format":"json",
-         "target":"Niv2\/BeeGameTry.json"
+         "target":"BeeGameTry.json"
         }
     },
  "height":28,
@@ -431,7 +431,7 @@
         {
          "columns":4,
          "firstgid":1,
-         "image":"images\/Gameplay Assets\/colliders\/collider rojo pesticida corto.png",
+         "image":"..\/images\/Gameplay Assets\/colliders\/collider rojo pesticida corto.png",
          "imageheight":320,
          "imagewidth":128,
          "margin":0,
@@ -517,7 +517,7 @@
         {
          "columns":50,
          "firstgid":41,
-         "image":"images\/Menu\/fondo ciudad.png",
+         "image":"..\/images\/Menu\/fondo ciudad.png",
          "imageheight":928,
          "imagewidth":1600,
          "margin":0,
@@ -530,7 +530,7 @@
         {
          "columns":4,
          "firstgid":1491,
-         "image":"images\/Gameplay Assets\/colliders\/CollidersLV2.png",
+         "image":"..\/images\/Gameplay Assets\/colliders\/CollidersLV2.png",
          "imageheight":896,
          "imagewidth":128,
          "margin":0,
@@ -543,7 +543,7 @@
         {
          "columns":4,
          "firstgid":1603,
-         "image":"images\/Gameplay Assets\/colliders\/FlorNiv2.png",
+         "image":"..\/images\/Gameplay Assets\/colliders\/FlorNiv2.png",
          "imageheight":320,
          "imagewidth":128,
          "margin":0,

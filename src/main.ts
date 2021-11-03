@@ -6,6 +6,8 @@ import Escena4 from './scenes/Escena4'
 import Game from './scenes/Game'
 import GameOver from './scenes/GameOver'
 import UI from './scenes/UI'
+import Game2 from './scenes/Game2'
+import Game3 from './scenes/Game3'
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
@@ -21,10 +23,10 @@ const config: Phaser.Types.Core.GameConfig = {
         default: 'matter',
         matter: {
             //gravity: { y: 2 },
-            debug: true
+            debug: false
         }
     },
-	scene: [EscenaMenu, Escena3, Escena4, Game, GameOver, UI]
+	scene: [EscenaMenu, Escena3, Escena4, Game, Game2, Game3, GameOver, UI]
 } 
 
 export default new Phaser.Game(config)

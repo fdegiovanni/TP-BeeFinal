@@ -44,13 +44,14 @@ export default class Game extends Phaser.Scene
     this.load.image('pesticorto', 'assets/images/Gameplay Assets/colliders/collider rojo pesticida corto.png')
     //Obstaculos
     this.load.image('obstaculos', 'assets/images/Gameplay Assets/colliders/tilemap1 prueba.png')
+    this.load.image('Flor', 'assets/images/Gameplay Assets/colliders/FlorNiv1.png')
 
     //preload de el fondo del tile 
-    //this.load.image('menufondo', 'assets/images/Menu/menufondo.png')
-    this.load.image('fondolevel', 'assets/images/Menu/fondo attarrdecer.png')
+    this.load.image('fondolevel', 'assets/images/Menu/menufondo.png')
+    
     //Preload Tilemaps
     
-    this.load.tilemapTiledJSON('BeeGame', 'assets/BeeGameTry.json')
+    this.load.tilemapTiledJSON('BeeGame1', 'assets/Niv1/Niv1.json')
 
  }
 
@@ -59,13 +60,14 @@ export default class Game extends Phaser.Scene
     this.scene.launch('ui')
 
     //Tilemaps
-    const map = this.make.tilemap({ key: 'BeeGame' });
-    this.cameras.main.setBounds(0, 0, 4800, 885)
+    const map = this.make.tilemap({ key: 'BeeGame1' });
+    this.cameras.main.setBounds(0, 0, 1920, 885)
     //Conjunto de Patrones/Aka Tileset
 
     const tileset1 = map.addTilesetImage('Fondo', 'fondolevel'); //Primero el nombre del conjunto y luego como se definio en Visual
     const tileset2 = map.addTilesetImage('OBSTACULOS','obstaculos');
     const tileset3 = map.addTilesetImage('SUELO', 'pesticorto' );
+    const tileset4 = map.addTilesetImage('florcita', 'Flor')
 
     //Capas/Aka 'Layers'
 
@@ -77,6 +79,7 @@ export default class Game extends Phaser.Scene
         layercollidersuelo.setCollisionByProperty({ collides: true})
 
         map.createLayer('Obstaculos', tileset2)
+        map.createLayer('Superado', tileset4)
 
 		const objectsLayer = map.getObjectLayer('objects')
 
@@ -112,7 +115,15 @@ export default class Game extends Phaser.Scene
 					health.setData('healthPoints', 1)
 					break
 				}
+                case 'FlorSup':
+                    {
+                        const flor = this.matter.add.rectangle(x + (width *0.5), y + (height * 0.5), width, height, {
+                            isStatic: true
+                        })
 
+                        this.obstacles.add('FlorSup', flor)
+                        break
+                    }
                 case 'Choques':
                     {
                         const choque = this.matter.add.rectangle(x + (width *0.5), y + (height * 0.5), width, height, {

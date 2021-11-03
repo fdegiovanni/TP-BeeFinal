@@ -7,8 +7,6 @@ export default class EscenaMenu extends Phaser.Scene{
 
     preload ()
     {
-        //Preloads de el menú principal
-        console.log('preloadScene1')
         this.load.image('creds',  'assets/images/Menu/creds.png')
         this.load.image('casaico', 'assets/images/Menu/casa ico grande.png')
         this.load.image('menufondo', 'assets/images/Menu/menufondo.png')
@@ -45,13 +43,13 @@ export default class EscenaMenu extends Phaser.Scene{
         help.setInteractive()
         help.on('pointerdown', () => this.scene.start('game') );
   
-        var sound = this.add.image(1350, 120, 'sound')
+        /*var sound = this.add.image(1350, 120, 'sound')
         sound.setInteractive()
         //sound.on('pointerdown', () => );
   
         var music = this.add.image(1450, 120, 'music')
         music.setInteractive()
-        //music.on('pointerdown', () => );
+        //music.on('pointerdown', () => );*/
       }
 
 }
