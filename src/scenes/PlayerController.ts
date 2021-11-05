@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import StateMachine from '../statemachine/StateMachine'
 import { sharedInstance as events } from './EventCenter'
 import ObstaclesController from './ObstaclesController'
+import sonidogeneral from './MusicManager'
 
 type CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys
 
@@ -17,7 +18,7 @@ export default class PlayerController
 	private stateMachine: StateMachine
 
 	private health = 3
-
+	private sound: any;
 
     //private lastSnowman?: Phaser.Physics.Matter.Sprite ///cambiar config a un Boss
 
@@ -281,6 +282,7 @@ export default class PlayerController
 
 		this.scene.time.delayedCall(1500, () => {
 			this.scene.scene.start('game-over')
+		
 		})
 	}
 
@@ -289,6 +291,8 @@ export default class PlayerController
 		this.sprite.setOnCollide(() => {})
 
 		this.scene.time.delayedCall(100, () => {
+			let sound: any = this.scene.scene.get('SonidosGeneral')
+			//sound.SonidoStop()
 			this.scene.scene.start('gamelv2')
 		})
 
@@ -304,6 +308,8 @@ export default class PlayerController
 		this.sprite.setOnCollide(() => {})
 
 		this.scene.time.delayedCall(100, () => {
+			let sound: any = this.scene.scene.get('SonidosGeneral')
+			//sound.SonidoStop()
 			this.scene.scene.start('gamelv3')
 		})
 

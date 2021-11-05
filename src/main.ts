@@ -8,6 +8,7 @@ import GameOver from './scenes/GameOver'
 import UI from './scenes/UI'
 import Game2 from './scenes/Game2'
 import Game3 from './scenes/Game3'
+import sonidogeneral from './scenes/MusicManager'
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
@@ -26,7 +27,7 @@ const config: Phaser.Types.Core.GameConfig = {
             debug: false
         }
     },
-	scene: [EscenaMenu, Escena3, Escena4, Game, Game2, Game3, GameOver, UI]
+	scene: [EscenaMenu, Escena3, Escena4, Game, Game2, Game3, GameOver, UI, sonidogeneral]
 } 
 
 export default new Phaser.Game(config)

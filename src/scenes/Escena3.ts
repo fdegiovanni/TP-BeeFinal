@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 
 export default class Escena3 extends Phaser.Scene
 {
+  sound: any;
 
     constructor() {
       super('options');
@@ -37,17 +38,44 @@ export default class Escena3 extends Phaser.Scene
 
       this.add.image(950, 550, 'abselect');
 
-      var sound = this.add.image(950, 300, 'sound');
-      sound.setScale(0.7)
-      sound.setInteractive()
-      sound.on('pointerdown', ()=> this.add.image(950, 300, 'soundmute'))
+      // var musicmute = this.add.image(950, 400, 'musicmute');
+      // musicmute.setInteractive()
+      // musicmute.setVisible(false)
 
-      var music = this.add.image(950, 400, 'music');
-      music.setInteractive()
-      music.setScale(0.7)
-      music.on('pointerdown', ()=> this.add.image(950, 400, 'musicmute'))
+      // var soundmute = this.add.image(950, 300, 'soundmute');
+      // soundmute.setInteractive()
+      // soundmute.setVisible(false)
+      // let sound2: any = this.scene.get('SonidosGeneral')
+			
+
+      // var sound = this.add.image(950, 300, 'sound');
+      // sound.setScale(0.7)
+      // sound.setInteractive()
+      // sound.on('pointerdown', ()=>{
+      //   sound.setVisible(false)
+      //   soundmute.setVisible(true)
+      // })
+
+      // var music = this.add.image(950, 400, 'music');
+      // music.setInteractive()
+      // music.setScale(0.7)
+      // music.on('pointerdown', ()=> {
+      // music.setVisible(false)
+      // musicmute.setVisible(true)
+      // sound2.SonidoMute(true)
+      // })
       
-      
+      // soundmute.on('pointerdown', ()=>{
+      // soundmute.setVisible(false)
+      // sound.setVisible(true)
+      // })
+
+      // musicmute.on('pointerdown', ()=> {
+      //   musicmute.setVisible(false)
+      //   music.setVisible(true)
+      //   sound2.SonidoMute(false)
+      //   })
+
       var volver = this.add.image(800, 800, 'bac')
       volver.setInteractive()
       volver.on('pointerdown', () => this.scene.start('inicio') );

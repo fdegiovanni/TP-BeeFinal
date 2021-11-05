@@ -1,6 +1,10 @@
 import Phaser from 'phaser'
+import sonidogeneral from './MusicManager'
 
 export default class EscenaMenu extends Phaser.Scene{
+
+    sound: any;
+
     constructor () {
         super('inicio');
     }
@@ -15,7 +19,7 @@ export default class EscenaMenu extends Phaser.Scene{
         this.load.image('reintentar', 'assets/images/Menu/reintentar grande.png')
         this.load.image('sound', 'assets/images/Menu/sound.png')
         this.load.image('titulo', 'assets/images/Menu/title.png')
-        this.load.image('options', 'assets/images/Menu/ajuste.png')
+        //this.load.image('options', 'assets/images/Menu/ajuste.png')
 
         //Preloads de los colliders
         this.load.image('pesticorto', 'assets/images/Gameplay Assets/colliders/collider rojo pesticida corto.png')
@@ -23,17 +27,24 @@ export default class EscenaMenu extends Phaser.Scene{
         this.load.image('pestimedio', 'assets/images/Gameplay Assets/colliders/collider rojo pesticida medio.png')
         this.load.image('matamosca', 'assets/images/Gameplay Assets/colliders/matamoscas grande.png')
 
+        this.load.audio('MusicaNiv1', 'assets/sounds/MUSICA/Musica_Nivel_01_Gameplay.mp3')
+        this.load.audio('MusicaNiv2', 'assets/sounds/MUSICA/Musica_Nivel_02_Gameplay.mp3')
+        this.load.audio('MusicaNiv3', 'assets/sounds/MUSICA/Musica_Nivel_03_Gameplay.mp3')
+        this.load.audio('MusicaLose', 'assets/sounds/MUSICA/Musica_Derrota.mp3')
+        this.load.audio('MusicaMenu', 'assets/sounds/MUSICA/Musica_Menu.mp3')
     }
 
     create() {
+        this.sound = this.scene.get("SonidosGeneral");
+        this.sound.Sonido('MusicaMenu')
 
         this.add.image(800, 450, 'menufondo'); 
   
         this.add.image(800, 350, 'titulo'); 
   
-        var start = this.add.image(1000, 550, 'options')
+        /*var start = this.add.image(1000, 550, 'options')
         start.setInteractive()
-        start.on('pointerdown', () => this.scene.start('options') );
+        start.on('pointerdown', () => this.scene.start('options') );*/
   
         var creds = this.add.image(600, 550, 'creds')
         creds.setInteractive()

@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import ObstaclesController from './ObstaclesController'
 import PlayerController from './PlayerController'
+import sonidogeneral from './MusicManager'
 
 
 export default class Game2 extends Phaser.Scene
@@ -12,7 +13,7 @@ export default class Game2 extends Phaser.Scene
  private bee?: Phaser.Physics.Matter.Sprite
  private playerController?: PlayerController
  private obstacles!: ObstaclesController
- 
+ sound: any;
  constructor()
 	{
 		super('gamelv2')
@@ -53,7 +54,9 @@ this.load.tilemapTiledJSON('BeeGame2', 'assets/Niv2/BeeGameTry.json')
 create () 
 {
     this.scene.launch('ui')
-
+    this.sound = this.scene.get("SonidosGeneral");
+    this.sound.Sonido('MusicaNiv2')
+    
     //Tilemaps
     const map = this.make.tilemap({ key: 'BeeGame2' });
     this.cameras.main.setBounds(0, 0, 4800, 885)

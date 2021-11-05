@@ -1,7 +1,7 @@
 import Phaser from 'phaser'
 import ObstaclesController from './ObstaclesController'
 import PlayerController from './PlayerController'
-
+import sonidogeneral from './MusicManager'
 
 export default class Game extends Phaser.Scene
 {
@@ -13,7 +13,7 @@ export default class Game extends Phaser.Scene
  private playerController?: PlayerController
  private obstacles!: ObstaclesController
  //private enemigo: EnemigoController [] = []¨
-
+ sound: any;
  
 
  constructor()
@@ -57,8 +57,11 @@ export default class Game extends Phaser.Scene
 
  create()
  {
+    
     this.scene.launch('ui')
-
+    this.sound = this.scene.get("SonidosGeneral");
+    this.sound.Sonido('MusicaNiv1')
+    
     //Tilemaps
     const map = this.make.tilemap({ key: 'BeeGame1' });
     this.cameras.main.setBounds(0, 0, 1920, 885)
@@ -122,6 +125,7 @@ export default class Game extends Phaser.Scene
                         })
 
                         this.obstacles.add('FlorSup', flor)
+                        
                         break
                     }
                 case 'Choques':

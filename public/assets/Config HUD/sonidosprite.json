@@ -1,0 +1,28 @@
+{"frames": [
+
+{
+	"filename": "sound.png",
+	"frame": {"x":0,"y":0,"w":120,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":120,"h":120},
+	"sourceSize": {"w":120,"h":120}
+},
+{
+	"filename": "sound1.png",
+	"frame": {"x":120,"y":0,"w":120,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":120,"h":120},
+	"sourceSize": {"w":120,"h":120}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "sonidosprite.png",
+	"format": "RGBA8888",
+	"size": {"w":240,"h":120},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:701d867f824a8d9016c3a7f4efb65ee8:1a5f397e8e171893d93ff54d3a67258a:83c1b8b492de5d52b02d941826dca052$"
+}
+}

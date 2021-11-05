@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import ObstaclesController from './ObstaclesController'
 import PlayerController from './PlayerController'
+import sonidogeneral from './MusicManager'
 
 
 export default class Game3 extends Phaser.Scene
@@ -12,7 +13,8 @@ export default class Game3 extends Phaser.Scene
  private bee?: Phaser.Physics.Matter.Sprite
  private playerController?: PlayerController
  private obstacles!: ObstaclesController
- 
+ sound: any;
+
  constructor()
 	{
 		super('gamelv3')
@@ -54,7 +56,8 @@ export default class Game3 extends Phaser.Scene
     create () 
 {
     this.scene.launch('ui')
-
+    this.sound = this.scene.get("SonidosGeneral");
+    this.sound.Sonido('MusicaNiv3')
     //Tilemaps
     const map = this.make.tilemap({ key: 'BeeGame3' });
     this.cameras.main.setBounds(0, 0, 4800, 885)
