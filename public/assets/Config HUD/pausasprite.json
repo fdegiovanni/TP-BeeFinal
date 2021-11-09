@@ -1,0 +1,28 @@
+{"frames": [
+
+{
+	"filename": "pausa.png",
+	"frame": {"x":0,"y":0,"w":95,"h":110},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":95,"h":110},
+	"sourceSize": {"w":95,"h":110}
+},
+{
+	"filename": "pausa2.png",
+	"frame": {"x":95,"y":0,"w":95,"h":110},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":95,"h":110},
+	"sourceSize": {"w":95,"h":110}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "pausasprite.png",
+	"format": "RGBA8888",
+	"size": {"w":190,"h":110},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:9f840a6c74d286cf3a440d0d5f98be02:3c76dc0b328cc7b4ca32dbdce52daf09:441874429f48949e25f93ac6f4c12477$"
+}
+}

@@ -3,10 +3,12 @@ import { sharedInstance as events } from './EventCenter'
 
 export default class UI extends Phaser.Scene
 {
-
+	sound:any
 	private graphics!: Phaser.GameObjects.Graphics
 
 	private hearts!: Phaser.GameObjects.Group
+
+	private Escena;
 
 	constructor()
 	{
@@ -18,7 +20,7 @@ export default class UI extends Phaser.Scene
 	{
 		//this.starsCollected = 0
 	}
-
+	
     create()
 	{
 
@@ -43,6 +45,7 @@ export default class UI extends Phaser.Scene
 
 		this.events.on(Phaser.Scenes.Events.SHUTDOWN,() => 
 		{
+	
 			events.off('health-changed', this.setHealth)
 		})
 
@@ -54,14 +57,19 @@ export default class UI extends Phaser.Scene
 			const heart = go as Phaser.GameObjects.Image
 			if (idx < health)
 			{
+				
 				heart.setTexture('health')
 			}
 			else
 			{
+			
 				heart.setTexture('healthempty')
 			}
 		})
 	}
 
+	Escenanombre(nombre){
+		this.Escena = nombre;
+	}
 
 }

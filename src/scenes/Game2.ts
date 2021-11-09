@@ -49,6 +49,9 @@ this.load.image('FondoSig2', 'assets/images/Menu/fondo ciudad.png')
 //Preload Tilemaps
     
 this.load.tilemapTiledJSON('BeeGame2', 'assets/Niv2/BeeGameTry.json')
+
+this.load.audio('healthfx', '/assets/sounds/MUSICA/SFX/Powerup.mp3')
+    this.load.audio('pesticidafx', '/assets/sounds/MUSICA/SFX/Pesticida.mp3')
 }
 
 create () 
@@ -56,6 +59,11 @@ create ()
     this.scene.launch('ui')
     this.sound = this.scene.get("SonidosGeneral");
     this.sound.Sonido('MusicaNiv2')
+    this.sound.AgregarEscena(this)
+
+    //Restart
+    let ui:any = this.scene.get("ui");
+    ui.Escenanombre(this.scene.key)
     
     //Tilemaps
     const map = this.make.tilemap({ key: 'BeeGame2' });
@@ -152,7 +160,7 @@ destroy()
 
 update(t: number, dt: number)
 {
-    
+    this.sound.PausaJuego(this)
   this.playerController?.update(dt)
 
 }

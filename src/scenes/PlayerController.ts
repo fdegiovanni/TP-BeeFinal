@@ -1,4 +1,4 @@
-import Phaser from 'phaser'
+import Phaser, { Sound } from 'phaser'
 import StateMachine from '../statemachine/StateMachine'
 import { sharedInstance as events } from './EventCenter'
 import ObstaclesController from './ObstaclesController'
@@ -18,9 +18,9 @@ export default class PlayerController
 	private stateMachine: StateMachine
 
 	private health = 3
-	private sound: any;
 
-    //private lastSnowman?: Phaser.Physics.Matter.Sprite ///cambiar config a un Boss
+
+    //private lastSnowman?: Phaser.Physics.Matter.Sprite //cambiar config a un Boss
 
     constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite, cursors: CursorKeys, obstacles: ObstaclesController)
 	{
@@ -65,6 +65,10 @@ export default class PlayerController
 			onEnter: this.SupLevel3OnEnter,
 			onUpdate: this.SupLevel3OnUpdate
 		})
+		.addState('SupLvl4', {
+			onEnter: this.SupLevel4OnEnter,
+			onUpdate: this.SupLevel4OnUpdate
+		})
         .setState('idle')
 
 		
@@ -88,9 +92,16 @@ export default class PlayerController
 				this.stateMachine.setState('SupLvl2')
 				return
 			}
-			if (this.obstacles.is('FlorSup3', body))
+
+			if (this.obstacles.is('FlorSuperado3', body))
 			{
 				this.stateMachine.setState('SupLvl3')
+				return
+			}
+
+			if (this.obstacles.is('SupLVLWIN', body))
+			{
+				this.stateMachine.setState('SupLvl4')
 				return
 			}
 
@@ -119,7 +130,9 @@ export default class PlayerController
 				case 'health':
 				{
 					
-					const value = sprite.getData('healthPoints') ?? 1 
+					const value = sprite.getData('healthPoints') ?? 1
+					let sound: any = this.scene.scene.get('SonidosGeneral')
+					sound.SonidoHearthON()
 					this.health = Phaser.Math.Clamp(this.health + value, 0, 3)
 					events.emit('health-changed', this.health)
 					sprite.destroy()
@@ -129,17 +142,32 @@ export default class PlayerController
 				case 'Poison':
 				{
 					events.emit('health-changed', this.health)
+					let sound: any = this.scene.scene.get('SonidosGeneral')
+					sound.Sonidopesti()
 					sprite.destroy()
+					break
+				}
+
+				case 'Pium':
+				{
+					events.emit('health-changed', this.health)
+					let sound: any = this.scene.scene.get('SonidosGeneral')
+					sound.SonidoCollider()
+					
+					sprite.destroy()
+
 					break
 				}
 			}
 
   })
- }
+  		
+}
 
  update(dt: number)
 	{
 		
+
 		this.stateMachine.update(dt)
 
 		
@@ -153,6 +181,7 @@ export default class PlayerController
 
     private setHealth(value: number)
 	{
+	
 		this.health = Phaser.Math.Clamp(value, 0, 3)
 
 		events.emit('health-changed', this.health)
@@ -261,18 +290,11 @@ export default class PlayerController
 		})
 
 		this.stateMachine.setState('idle')
-
-		
-
+		let sound: any = this.scene.scene.get('SonidosGeneral')
+		sound.SonidoCollider()
 		this.setHealth(this.health - 1)
 		
 	}
-
-	
-
-	//AGREGAR WALKON UPDATE
-	//JUMPO ON ENTER AGREGAR
-	//AGREGAR EN EL IDLE ON UPDATE
 
     private deadOnEnter()
 	{
@@ -293,7 +315,7 @@ export default class PlayerController
 		this.scene.time.delayedCall(100, () => {
 			let sound: any = this.scene.scene.get('SonidosGeneral')
 			//sound.SonidoStop()
-			this.scene.scene.start('gamelv2')
+			this.scene.scene.start('dyklv2')
 		})
 
 	}
@@ -310,7 +332,7 @@ export default class PlayerController
 		this.scene.time.delayedCall(100, () => {
 			let sound: any = this.scene.scene.get('SonidosGeneral')
 			//sound.SonidoStop()
-			this.scene.scene.start('gamelv3')
+			this.scene.scene.start('dyklv3')
 		})
 
 	}
@@ -325,7 +347,8 @@ export default class PlayerController
 		this.sprite.setOnCollide(() => {})
 
 		this.scene.time.delayedCall(100, () => {
-			this.scene.scene.start('gamelvBOSS')
+			let sound: any = this.scene.scene.get('SonidosGeneral')
+			this.scene.scene.start('dyklv4')
 		})
 
 	}
@@ -335,6 +358,21 @@ export default class PlayerController
 		this.stateMachine.setState('idle')
 	}
 
+	private  SupLevel4OnEnter()
+	{
+		this.sprite.setOnCollide(() => {})
+
+		this.scene.time.delayedCall(100, () => {
+			let sound: any = this.scene.scene.get('SonidosGeneral')
+			this.scene.scene.start('winscene')
+		})
+
+	}
+
+	private SupLevel4OnUpdate()
+	{
+		this.stateMachine.setState('idle')
+	}
 	
  	private createAnimations()
 	{

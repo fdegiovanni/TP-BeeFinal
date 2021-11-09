@@ -51,13 +51,23 @@ export default class Game3 extends Phaser.Scene
     this.load.tilemapTiledJSON('BeeGame3', 'assets/Niv3/Niv3Bee.json')
 
     this.load.image('Poison', 'assets/images/Gameplay Assets/power up/pesticida.png')
+
+    this.load.audio('healthfx', '/assets/sounds/MUSICA/SFX/Powerup.mp3')
+    this.load.audio('pesticidafx', '/assets/sounds/MUSICA/SFX/Pesticida.mp3')
     }
 
+    
     create () 
 {
     this.scene.launch('ui')
     this.sound = this.scene.get("SonidosGeneral");
     this.sound.Sonido('MusicaNiv3')
+    this.sound.AgregarEscena(this)
+    
+    // Restart
+    let ui:any = this.scene.get("ui");
+    ui.Escenanombre(this.scene.key)
+
     //Tilemaps
     const map = this.make.tilemap({ key: 'BeeGame3' });
     this.cameras.main.setBounds(0, 0, 4800, 885)
@@ -107,9 +117,10 @@ export default class Game3 extends Phaser.Scene
                        isStatic: true,
                        isSensor: true
                    })
-
+                   
                    health.setData('type', 'health')
                    health.setData('healthPoints', 1)
+                   //Agregar Sonido
                    break
                }
                case 'Poison':
@@ -120,16 +131,16 @@ export default class Game3 extends Phaser.Scene
                     })
                     health.setData('type', 'health')
                     health.setData('healthPoints', -1)
-                    
+                    //Agregar Sonido
                     break
                 }
-               case 'FlorSup3':
+               case 'FlorSuperado3':
                     {
                         const flor3 = this.matter.add.rectangle(x + (width *0.5), y + (height * 0.5), width, height, {
                             isStatic: true
                         })
 
-                        this.obstacles.add('FlorSup3', flor3)
+                        this.obstacles.add('FlorSuperado3', flor3)
                         break
                     }
                
@@ -167,7 +178,7 @@ destroy()
 
 update(t: number, dt: number)
 {
-    
+    this.sound.PausaJuego(this)
   this.playerController?.update(dt)
 
 }

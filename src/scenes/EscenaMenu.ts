@@ -32,6 +32,8 @@ export default class EscenaMenu extends Phaser.Scene{
         this.load.audio('MusicaNiv3', 'assets/sounds/MUSICA/Musica_Nivel_03_Gameplay.mp3')
         this.load.audio('MusicaLose', 'assets/sounds/MUSICA/Musica_Derrota.mp3')
         this.load.audio('MusicaMenu', 'assets/sounds/MUSICA/Musica_Menu.mp3')
+        this.load.audio('clic', 'assets/sounds/MUSICA/SFX/Blip_Select.mp3')
+        this.load.audio('choquecoll', 'assets/sounds/MUSICA/SFX/collider.mp3')
     }
 
     create() {
@@ -46,21 +48,17 @@ export default class EscenaMenu extends Phaser.Scene{
         start.setInteractive()
         start.on('pointerdown', () => this.scene.start('options') );*/
   
-        var creds = this.add.image(600, 550, 'creds')
+        var creds = this.add.image(790, 700, 'creds')
         creds.setInteractive()
-        creds.on('pointerdown', () => this.scene.start('creditos') );
+        creds.on('pointerdown', () => {this.scene.start('creditos') 
+        this.sound.SonidoClick()});
   
         var help = this.add.image(800, 570, 'play')
         help.setInteractive()
-        help.on('pointerdown', () => this.scene.start('game') );
+        //CAMBIAR A GAME NORMAL
+        help.on('pointerdown', () => {this.scene.start('GameBoss')
+        this.sound.SonidoClick()});
   
-        /*var sound = this.add.image(1350, 120, 'sound')
-        sound.setInteractive()
-        //sound.on('pointerdown', () => );
-  
-        var music = this.add.image(1450, 120, 'music')
-        music.setInteractive()
-        //music.on('pointerdown', () => );*/
       }
 
 }

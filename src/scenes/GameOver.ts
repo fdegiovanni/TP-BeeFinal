@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import sonidogeneral from './MusicManager'
 
+
 export default class GameOver extends Phaser.Scene
 {
 	sound: any;
@@ -18,6 +19,7 @@ export default class GameOver extends Phaser.Scene
 		this.load.image('casaico', 'assets/images/Menu/casa ico grande.png')
 		
 	}
+
 	create()
 	{
 		this.sound = this.scene.get("SonidosGeneral");
@@ -34,13 +36,16 @@ export default class GameOver extends Phaser.Scene
 		})
 		.setOrigin(0.5)
 
+		let ui:any = this.scene.get("ui");
+
+
 		var help = this.add.image(1000, 550, 'play')
         help.setInteractive()
         help.on('pointerdown', () => this.scene.start('game') );
 
 		var help = this.add.image(800, 570, 'reintentar')
         help.setInteractive()
-        help.on('pointerdown', () => this.scene.start('gamelv3') );
+        help.on('pointerdown', () => this.scene.start(ui.Escena) );
 
 		var help = this.add.image(600, 550, 'casaico')
         help.setInteractive()
@@ -49,6 +54,9 @@ export default class GameOver extends Phaser.Scene
 		sound.SonidoStop();
 		})
 		
+
+	
 		
 	}
+
 }

@@ -1,0 +1,113 @@
+
+
+import Phaser from 'phaser'
+import { DE_DE, EN_US, ES_AR, PT_BR } from '~/enums/languages'
+import { FETCHED, FETCHING, READY, TODO } from '~/enums/status'
+import { getTranslations, getPhrase } from '~/services/translations'
+
+export default class SceneMenu extends Phaser.Scene{
+    private textSpanish
+    private textGerman
+    private textEnglish
+    private textPortuguese
+
+    private updatedTextInScene
+    private updatedString = 'Siguiente'
+    private wasChangedLanguage = TODO
+
+    constructor () {
+        super('menu');
+    }
+
+    create() {
+        const { width, height } = this.scale
+
+//Aca empieza el botón de Español 
+
+		const buttonSpanish = this.add.rectangle(width * 0.1, height * 0.15, 150, 75, 0xffffff)
+			.setInteractive()
+			.on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+				this.getTranslations(ES_AR)
+			})
+
+		this.textSpanish = this.add.text(buttonSpanish.x, buttonSpanish.y, 'Español', {
+			color: '#000000'
+		})
+		.setOrigin(0.5)
+
+//Aca empieza el botón de Aleman 
+
+        const buttonGerman = this.add.rectangle(width * 0.3, height * 0.15, 150, 75, 0xffffff)
+			.setInteractive()
+			.on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+				this.getTranslations(DE_DE)
+			})
+
+		this.textGerman = this.add.text(buttonGerman.x, buttonGerman.y, 'Aleman', {
+			color: '#000000'
+		})
+		.setOrigin(0.5)
+
+//Aca empieza el botón de Ingles
+
+        const buttonEnglish = this.add.rectangle(width * 0.5, height * 0.15, 150, 75, 0xffffff)
+			.setInteractive()
+			.on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+				this.getTranslations(EN_US)
+			})
+
+		this.textEnglish = this.add.text(buttonEnglish.x, buttonEnglish.y, 'Inglés', {
+			color: '#000000'
+		})
+		.setOrigin(0.5)
+
+//Aca empieza el botón de Portugues
+
+        const buttonPortuguese = this.add.rectangle(width * 0.7, height * 0.15, 150, 75, 0xffffff)
+			.setInteractive()
+			.on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+				this.getTranslations(PT_BR)
+			})
+
+		this.textPortuguese = this.add.text(buttonPortuguese.x, buttonPortuguese.y, 'Portugués', {
+			color: '#000000'
+		})
+		.setOrigin(0.5)
+
+//Este botón que se ve aca es un botón que ya da ejemplo a ver cómo se usa la api. La explicación está en el word como "Explicación botón trads"
+
+
+//Primera parte
+        const buttonUpdate = this.add.rectangle(width * 0.5, height * 0.75, 150, 75, 0x44d27e)
+			.setInteractive()
+			.on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+				this.scene.start('play')
+			})
+
+//Segunda parte
+
+        this.updatedTextInScene = this.add.text(buttonUpdate.x,buttonUpdate.y, getPhrase(this.updatedString), {
+			color: '#000000'
+		})
+		.setOrigin(0.5)
+    }
+
+//Aca no entiendo bien que pasa pero creo q esto es lo q hace q las cosas cambien si se cambia el idioma ahre
+
+    update(){
+        // console.log(this.updatedTextInScene)
+        if(this.wasChangedLanguage === FETCHED){
+            this.wasChangedLanguage = READY;
+            this.updatedTextInScene.setText(getPhrase(this.updatedString));
+        }
+    }
+
+    async getTranslations(language){
+        this.wasChangedLanguage = FETCHING
+        await getTranslations(language)
+        this.wasChangedLanguage = FETCHED
+        // si solo se tiene un menu para elegir las opciones de idiomas conviene cargar aca la misma
+        // this.scene.start('play')
+    }
+
+}
