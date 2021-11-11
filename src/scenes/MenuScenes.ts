@@ -87,9 +87,9 @@ export default class MenuScene extends Phaser.Scene{
 
 //Segunda parte
         
-        // this.updatedTextInScene = this.add.text(buttonUpdate.x,buttonUpdate.y, getPhrase(this.updatedString), {
-		// 	color: '#000000'
-		// })
+        this.updatedTextInScene = this.add.text(buttonUpdate.x,buttonUpdate.y, getPhrase(this.updatedString), {
+			color: '#000000'
+		})
 		.setOrigin(0.5)
     }
 
