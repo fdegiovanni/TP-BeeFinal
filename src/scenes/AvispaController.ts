@@ -1,4 +1,5 @@
-// import Phaser from 'phaser'
+import Phaser from 'phaser'
+
 // import ObstaclesController from './ObstaclesController'
 // import { sharedInstance as events } from './EventCenter'
 

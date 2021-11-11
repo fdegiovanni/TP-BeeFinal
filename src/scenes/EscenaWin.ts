@@ -30,21 +30,22 @@ export default class EscenaWin extends Phaser.Scene
         this.add.image(800, 450, 'FondoWin'); 
 
         this.add.image(800, 350, 'Cuadro') 
-        .setScale(1.20)
+        .setScale(1.15)
 
-        this.add.image(550, 320, 'bee hexagonal'); 
+        this.add.image(800, 790, 'bee hexagonal')
 
         const { width, height } = this.scale
 
-        this.add.text(width * 0.5, height * 0.1, getPhrase('GANASTE'), {
+        this.add.text(width * 0.5, height * 0.25, getPhrase(`win`), {
 			fontFamily: 'font1',
 			fontSize: '52px',
 			color: '#FFFB00'
 		})
 		.setOrigin(0.5)
         //DAtos
-        this.add.text(width * 0.53, height * 0.30, getPhrase('Gracias a tu ayuda tendremos un ecosistema más sano y junto a ellas, a las abejas.'), {
-            wordWrap: { width: 400 },
+        this.add.text(width * 0.43, height * 0.40, getPhrase(`wnph`), {
+            align: 'center',
+            wordWrap: { width: 600 },
 			fontFamily: 'font1',
 			fontSize: '45px',
 			color: '#FFFB00'
@@ -60,7 +61,7 @@ export default class EscenaWin extends Phaser.Scene
 		let sound: any = this.scene.get('SonidosGeneral')
 		sound.SonidoStop();
 		})
-		var creds = this.add.image(790, 650, 'creds')
+		var creds = this.add.image(970, 650, 'creds')
         creds.setInteractive()
         creds.on('pointerdown', () => {this.scene.start('creditos') 
         this.sound.SonidoClick()});

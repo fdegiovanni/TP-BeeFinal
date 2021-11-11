@@ -8,6 +8,7 @@ type CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys
 
 export default class PlayerController
 {
+
     private scene: Phaser.Scene
 	private sprite: Phaser.Physics.Matter.Sprite
 	private cursors: CursorKeys
@@ -19,7 +20,7 @@ export default class PlayerController
 
 	private health = 3
 
-
+	private piumt 
     //private lastSnowman?: Phaser.Physics.Matter.Sprite //cambiar config a un Boss
 
     constructor(scene: Phaser.Scene, sprite: Phaser.Physics.Matter.Sprite, cursors: CursorKeys, obstacles: ObstaclesController)
@@ -69,6 +70,10 @@ export default class PlayerController
 			onEnter: this.SupLevel4OnEnter,
 			onUpdate: this.SupLevel4OnUpdate
 		})
+		.addState('PiumHit', {
+			onEnter: this.picaduraAvispaEnter,
+			//onUpdate: this.picaduraAvispaUpdate
+		})
         .setState('idle')
 
 		
@@ -102,6 +107,11 @@ export default class PlayerController
 			if (this.obstacles.is('SupLVLWIN', body))
 			{
 				this.stateMachine.setState('SupLvl4')
+				return
+			}
+			if (this.obstacles.is('Pium', body))
+			{
+				this.stateMachine.setState('PiumHit')
 				return
 			}
 
@@ -148,14 +158,14 @@ export default class PlayerController
 					break
 				}
 
-				case 'Pium':
+				case 'Piumhit':
 				{
 					events.emit('health-changed', this.health)
 					let sound: any = this.scene.scene.get('SonidosGeneral')
 					sound.SonidoCollider()
-					
-					sprite.destroy()
-
+					this.picaduraAvispaEnter()
+					sprite.setVisible(false)
+					sprite.y= -1000
 					break
 				}
 			}
@@ -296,6 +306,7 @@ export default class PlayerController
 		
 	}
 
+	
     private deadOnEnter()
 	{
 		this.sprite.play('player-death')
@@ -374,6 +385,16 @@ export default class PlayerController
 		this.stateMachine.setState('idle')
 	}
 	
+	private picaduraAvispaEnter()
+		{
+			let sound: any = this.scene.scene.get('SonidosGeneral')
+			sound.SonidoCollider()
+			this.setHealth(this.health - 1)
+			//acá va una variable distinta de pium en el let pero no sé
+			
+		}
+	
+
  	private createAnimations()
 	{
         this.sprite.anims.create({

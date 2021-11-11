@@ -13,7 +13,7 @@ export default class EscenaDYKBoss extends Phaser.Scene{
     preload ()
     {
         //assets\images\Pantallas_Assets\Etapa Superada
-        this.load.image('FondoDYK',  'assets/images/Pantallas_Assets/Etapa Superada/pantalladyk.png')
+        this.load.image('FondoDYK',  'assets/images/Pantallas_Assets/Opciones/Fondo Azul.png')
         this.load.image('bee hexagonal', 'assets/images/Pantallas_Assets/Etapa Superada/bee hexagonal.png')
         this.load.image('play', 'assets/images/Menu/play ico.png')
         this.load.audio('MusicaDYK', 'assets/sounds/MUSICA/mini-cancion-sabias-que.mp3')
@@ -26,19 +26,20 @@ export default class EscenaDYKBoss extends Phaser.Scene{
         this.sound.Sonido('MusicaDYK')
 
         this.add.image(800, 450, 'FondoDYK');
-        this.add.image(550, 450, 'bee hexagonal')
+        this.add.image(800, 820, 'bee hexagonal')
         //Const Text
         const { width, height } = this.scale
 
-        this.add.text(width * 0.5, height * 0.3, getPhrase('dyk'), {
+        this.add.text(width * 0.5, height * 0.3, getPhrase(`dyk`), {
 			fontFamily: 'font1',
 			fontSize: '52px',
 			color: '#FFFB00'
 		})
 		.setOrigin(0.5)
         //DAtos
-        this.add.text(width * 0.53, height * 0.45, getPhrase('dato1'), {
-            wordWrap: { width: 400 },
+        this.add.text(width * 0.43, height * 0.42, getPhrase(`dato7`), {
+            align: 'center',
+            wordWrap: { width: 600 },
 			fontFamily: 'font1',
 			fontSize: '45px',
 			color: '#FFFB00'

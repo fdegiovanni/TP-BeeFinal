@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 import sonidogeneral from './MusicManager'
-
+import { getPhrase } from '~/services/translations'
 
 export default class GameOver extends Phaser.Scene
 {
@@ -29,7 +29,7 @@ export default class GameOver extends Phaser.Scene
 
 		const { width, height } = this.scale
 
-		this.add.text(width * 0.5, height * 0.3, 'Game Over', {
+		this.add.text(width * 0.5, height * 0.3, getPhrase`gover`, {
 			fontFamily: 'font1',
 			fontSize: '52px',
 			color: '#FFFB00'

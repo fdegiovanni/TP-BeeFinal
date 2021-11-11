@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 
+import UNRaf from './scenes/UNRaf'
 import EscenaMenu from './scenes/EscenaMenu'
 import Escena3 from './scenes/Escena3'
 import Game from './scenes/Game'
@@ -29,11 +30,10 @@ const config: Phaser.Types.Core.GameConfig = {
     physics: {
         default: 'matter',
         matter: {
-            //gravity: { y: 2 },
             debug: false
         }
     },
-	scene: [EscenaMenu, Escena3, Game, Game2, Game3, EscenaBOSS, GameOver, UI, sonidogeneral, EscenaDYK, EscenaDYK2, EscenaDYK3, EscenaDYKBoss, EscenaWin, MenuScene]
+	scene: [ UNRaf, EscenaMenu, Escena3, Game, Game2, Game3, EscenaBOSS, GameOver, UI, sonidogeneral, EscenaDYK, EscenaDYK2, EscenaDYK3, EscenaDYKBoss, EscenaWin, MenuScene]
 } 
 
 export default new Phaser.Game(config)

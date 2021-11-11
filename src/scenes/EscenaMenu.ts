@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import sonidogeneral from './MusicManager'
-
+import UNRaf
+ from './UNRaf';
 export default class EscenaMenu extends Phaser.Scene{
 
     sound: any;
@@ -37,6 +38,9 @@ export default class EscenaMenu extends Phaser.Scene{
     }
 
     create() {
+
+        this.add.video(800, 950, 'Unraf');
+
         this.sound = this.scene.get("SonidosGeneral");
         this.sound.Sonido('MusicaMenu')
 
@@ -56,7 +60,7 @@ export default class EscenaMenu extends Phaser.Scene{
         var help = this.add.image(800, 570, 'play')
         help.setInteractive()
         //CAMBIAR A GAME NORMAL
-        help.on('pointerdown', () => {this.scene.start('GameBoss')
+        help.on('pointerdown', () => {this.scene.start('dyk')
         this.sound.SonidoClick()});
   
       }

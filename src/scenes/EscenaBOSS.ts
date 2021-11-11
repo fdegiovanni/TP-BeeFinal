@@ -64,6 +64,8 @@ export default class EscenaBOSS extends Phaser.Scene
 
  create()
  {
+
+    
     this.scene.launch('ui')
 
     this.sound = this.scene.get("SonidosGeneral");
@@ -130,12 +132,29 @@ export default class EscenaBOSS extends Phaser.Scene
                 case 'Pium':
                 {
                     const health = this.matter.add.sprite(x, y, 'Pium', undefined, {
-                        //isStatic: true,
+                        isStatic: true,
                         isSensor: true
                     })
-                    health.setData('type', 'health')
+                    health.setData('type', 'Piumhit')
                     health.setData('healthPoints', -1)
-                    //const piumvelocity = this.matter.add.('Pium'){}
+                    this.tweens.add({
+                        targets: health,
+                        duration: 6250,
+                        x: "-=3000",
+                        repeat: 0,
+                        onComplete: () => {
+                            health.setRotation(Math.PI)
+                            this.tweens.add(
+                                {
+                                    targets: health,
+                                    duration: 10000,
+                                    x: "+=9600",
+                                    repeat: 0
+                                }
+                            )
+                        }
+                      })
+                
                     break
                 }
                 case 'SupLVLWIN':
@@ -184,7 +203,7 @@ export default class EscenaBOSS extends Phaser.Scene
          Avispa.scrollFactorY = 0
 
          //aguijones
-
+         
         // let aguijon = this.matter.add.group({
         //     key : 'Pium',
         //     repeat: 7,
@@ -230,5 +249,6 @@ export default class EscenaBOSS extends Phaser.Scene
     {
          this.sound.PausaJuego(this)
          this.playerController?.update(dt)
+
     }
 }

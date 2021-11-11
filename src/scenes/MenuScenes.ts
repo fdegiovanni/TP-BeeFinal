@@ -8,7 +8,9 @@ export default class MenuScene extends Phaser.Scene{
     private textGerman
     private textEnglish
     private textPortuguese
-    
+
+    private spanish
+    private english
 
 
     private updatedTextInScene
@@ -24,6 +26,7 @@ export default class MenuScene extends Phaser.Scene{
         this.load.image('Inglés', 'assets/images/Menu/Banderas/yankeel.png')
         this.load.image('Brasil', 'assets/images/Menu/Banderas/brazil.png')
         this.load.image('Argentina', 'assets/images/Menu/Banderas/argentina.png')
+        this.load.image('play', 'assets/images/Menu/play ico.png')
     }
 
     create() {
@@ -76,7 +79,7 @@ export default class MenuScene extends Phaser.Scene{
 
 
 //Primera parte
-        const buttonUpdate = this.add.rectangle(width * 0.5, height * 0.75, 150, 75, 0x44d27e)
+        const buttonUpdate = this.add.image(width * 0.5, height * 0.75, 'play')
 			.setInteractive()
 			.on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
 				this.scene.start('dyk')
@@ -84,9 +87,9 @@ export default class MenuScene extends Phaser.Scene{
 
 //Segunda parte
         
-        this.updatedTextInScene = this.add.text(buttonUpdate.x,buttonUpdate.y, getPhrase(this.updatedString), {
-			color: '#000000'
-		})
+        // this.updatedTextInScene = this.add.text(buttonUpdate.x,buttonUpdate.y, getPhrase(this.updatedString), {
+		// 	color: '#000000'
+		// })
 		.setOrigin(0.5)
     }
 
