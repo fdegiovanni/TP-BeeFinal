@@ -30,7 +30,7 @@ export default class EscenaDYK2 extends Phaser.Scene{
         //Const Text
         const { width, height } = this.scale
 
-        this.add.text(width * 0.5, height * 0.3, getPhrase(`dyk`), {
+        this.add.text(width * 0.5, height * 0.1, getPhrase(`dyk`), {
 			fontFamily: 'Pixel',
 			fontSize: '52px',
 			color: '#FFFB00'

@@ -79,7 +79,7 @@ export default class EscenaBOSS extends Phaser.Scene
     //Conjunto de Patrones/Aka Tileset
 
     const tileset1 = map.addTilesetImage('Fondo', 'FondoNiv'); //Primero el nombre del conjunto y luego como se definio en Visual
-    //const tileset2 = map.addTilesetImage('OBSTACULOS','obstaculos');
+
     const tileset3 = map.addTilesetImage('SUELO', 'pesticorto' );
     const tileset4 = map.addTilesetImage('Girasolcito', 'FlorBoss')
     
@@ -183,7 +183,7 @@ export default class EscenaBOSS extends Phaser.Scene
         //Config Avispa.
         let Avispa = this.add.image(1400, 200, 'Avispa')
         .setScale(0.7)
-         let AvispaT = this.tweens.add({
+        this.tweens.add({
 
              targets: Avispa,
 
@@ -199,41 +199,6 @@ export default class EscenaBOSS extends Phaser.Scene
          Avispa.scrollFactorX = 0
 
          Avispa.scrollFactorY = 0
-
-         //aguijones
-         
-        // let aguijon = this.matter.add.group({
-        //     key : 'Pium',
-        //     repeat: 7,
-        //     setXY: {x :20, y: 20, stepX: 20  }
-        // })
-
-        // this.aguijon = this.physics.add.group({
-		// 	classType: Phaser.GameObjects.Image
-		// })
-
-		// this.aguijon.createMultiple({
-		// 	key: 'Pium',
-		// 	setXY: {
-		// 		x:500,
-		// 		y:300,
-		// 		stepX: 200
-		// 	}, 
-			
-		// 	quantity: 7
-		// })
-////otro codigo de aguijones
-    //     this.aguijon = this.physics.add.group({
-	// 		key: 'Pium',
-    //         repeat: 7,
-	// 		setXY: {
-	// 			x:500,
-	// 			y:300,
-	// 			stepX: 200},
-    //     allowGravity: true,
-    //     gravityY: 350,
-
-    // })
 
     }
 
