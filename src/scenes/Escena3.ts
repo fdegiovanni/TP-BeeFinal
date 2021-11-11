@@ -24,7 +24,7 @@ export default class Escena3 extends Phaser.Scene
        const { width, height } = this.scale
 
        this.add.text(width * 0.5, height * 0.1, getPhrase('CRÉDITOS'), {
-           fontFamily: 'font1',
+           fontFamily: 'Pixel',
            fontSize: '52px',
            color: '#FFFB00'
        })

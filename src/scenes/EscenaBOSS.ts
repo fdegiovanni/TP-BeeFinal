@@ -12,8 +12,6 @@ export default class EscenaBOSS extends Phaser.Scene
     private obstacles!: ObstaclesController
     sound: any;
 
-    private aguijon;
-
     constructor()
     {
         super('GameBoss')
