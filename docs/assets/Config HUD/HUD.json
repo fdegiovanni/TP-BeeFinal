@@ -17,7 +17,7 @@
          "objects":[
                 {
                  "gid":1,
-                 "height":78.8528206744406,
+                 "height":73.7094232587457,
                  "id":1,
                  "name":"MusicaHUD",
                  "properties":[
@@ -29,13 +29,13 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":94.2830129215254,
-                 "x":1380.15127639458,
-                 "y":96.0037819098645
+                 "width":83.9962180901355,
+                 "x":1408.4399621809,
+                 "y":80.5735896627797
                 }, 
                 {
                  "gid":3,
-                 "height":76.2811219665932,
+                 "height":71.1377245508983,
                  "id":3,
                  "name":"SonidoHUD",
                  "properties":[
@@ -47,21 +47,21 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":83.9962180901359,
-                 "x":1279.85502678853,
-                 "y":93.432083202017
+                 "width":81.4245193822885,
+                 "x":1303.00031515916,
+                 "y":75.4301922470848
                 }, 
                 {
                  "gid":5,
-                 "height":86.8547116293728,
-                 "id":5,
-                 "name":"Pausaboton",
+                 "height":81.7113142136779,
+                 "id":6,
+                 "name":"PausaHUD",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":105.28679483139,
-                 "x":1490.87582729278,
-                 "y":96.1471793255594
+                 "width":79.5698077529153,
+                 "x":1511.44941695556,
+                 "y":85.8603844941696
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -70,7 +70,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":6,
+ "nextobjectid":7,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.0",
@@ -103,15 +103,15 @@
          "tilewidth":120
         }, 
         {
-         "columns":1,
+         "columns":2,
          "firstgid":5,
-         "image":"pausa.png",
+         "image":"pausasprite.png",
          "imageheight":110,
-         "imagewidth":95,
+         "imagewidth":190,
          "margin":0,
          "name":"Pausa",
          "spacing":0,
-         "tilecount":1,
+         "tilecount":2,
          "tileheight":110,
          "tilewidth":95
         }],
