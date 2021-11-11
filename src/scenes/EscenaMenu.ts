@@ -60,7 +60,7 @@ export default class EscenaMenu extends Phaser.Scene{
         var help = this.add.image(800, 570, 'play')
         help.setInteractive()
         //CAMBIAR A GAME NORMAL
-        help.on('pointerdown', () => {this.scene.start('dyk')
+        help.on('pointerdown', () => {this.scene.start('menu')
         this.sound.SonidoClick()});
   
       }

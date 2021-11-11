@@ -31,7 +31,7 @@ export default class EscenaDYK3 extends Phaser.Scene{
         const { width, height } = this.scale
 
         this.add.text(width * 0.5, height * 0.3, getPhrase(`dyk`), {
-			fontFamily: 'font1',
+			fontFamily: 'Pixel',
 			fontSize: '52px',
 			color: '#FFFB00'
 		})
@@ -40,7 +40,7 @@ export default class EscenaDYK3 extends Phaser.Scene{
         this.add.text(width * 0.43, height * 0.42, getPhrase(`dato6`), {
             align: 'center',
             wordWrap: { width: 600 },
-			fontFamily: 'font1',
+			fontFamily: 'Pixel',
 			fontSize: '45px',
 			color: '#FFFB00'
 		})

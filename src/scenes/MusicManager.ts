@@ -10,8 +10,9 @@ export default class sonidogeneral extends Phaser.Scene
     private sonidoclick
     //Sonido Corazón
     private sonidocorazon
+    
     private MusicaRepro;
-    private SonidoRepro;
+
     private MutearSonido = false;
     private MutearMusica = false;
     private Imagensonido;

@@ -1,7 +1,7 @@
 import Phaser from 'phaser'
 import ObstaclesController from './ObstaclesController'
 import PlayerController from './PlayerController'
-import sonidogeneral from './MusicManager'
+
 
 
 export default class Game2 extends Phaser.Scene

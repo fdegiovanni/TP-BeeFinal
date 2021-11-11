@@ -30,7 +30,7 @@ export default class GameOver extends Phaser.Scene
 		const { width, height } = this.scale
 
 		this.add.text(width * 0.5, height * 0.3, getPhrase`gover`, {
-			fontFamily: 'font1',
+			fontFamily: 'Pixel',
 			fontSize: '52px',
 			color: '#FFFB00'
 		})
